@@ -25,12 +25,12 @@ export async function startMining() {
 		T: BLOCK_TARGET,
 		created: timeNow,
 		miner: config.minerName,
-		note: "Test block (full target)",
+		note: "csmith89",
 		previd: previd,
 		txids: txids,
 		nonce: "0000000000000000000000000000000000000000000000000000000000000000"
 	}
-	
+
 	const miner = new Miner(NUM_MINING_THREADS, MINING_TIMEOUT)
 
 	let block: BlockObjectType

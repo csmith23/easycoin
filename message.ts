@@ -9,7 +9,7 @@ import {INVALID_MSG_TIMEOUT} from './constants'
 
 const HelloMessage = Record({
 	type: Literal('hello'),
-	version: Template(Literal('0.8.'), Number),
+	version: Template(Literal('0.8.0'), Number),
 	agent: String
 });
 
@@ -65,7 +65,7 @@ const MempoolMessage = Record({
 const MessageObject = Union(HelloMessage, PeersMessage, GetPeersMessage, ErrorMessage, GetObjectMessage, IHaveObjectMessage, ObjectMessage, GetChainTipMessage, ChainTipMessage, GetMempoolMessage, MempoolMessage); // changed in HW 4
 
 export function parseMessage(msg: string){
-	let parsedMessage 
+	let parsedMessage
 	try{
 		parsedMessage = JSON.parse(msg);
 	} catch(e){
