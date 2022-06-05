@@ -9,7 +9,7 @@ import {INVALID_MSG_TIMEOUT} from './constants'
 
 const HelloMessage = Record({
 	type: Literal('hello'),
-	version: Template(Literal('0.8.0'), Number),
+	version: Template(Literal('0.8.'), Number),
 	agent: String
 });
 
