@@ -82,7 +82,7 @@ export async function connectAsClient(){
 	const bootstrapAddress = config['bootstrapAddress'];
 
 	// Try to connect to all known peers in my database
-	
+
 	// await discoveredNewPeers([bootstrapAddress+":"+bootstrapPort])
 	await discoveredNewPeers(config['hardcodedPeerList'])
 	const discoveredPeerList = await readDiscoveredPeers()
@@ -101,7 +101,7 @@ export async function connectAsClient(){
 			discoveredPeerList.splice(i--,1)
 			console.log("Removing " + peerAddress + " from discovered peers list.")
 		}
-		if(address!==undefined && port!==undefined){
+		if(address!==undefined && port!==undefined && address !== '149.28.223.129' && address !== 'localhost'){
 			client.connect({port:port, host:address}, () => {
 				console.log("Successfully connected to peer at "+address+" port "+port);
 				peer = new Peer("no name", client);
