@@ -63,7 +63,7 @@ export const BlockObject = Record({
     nonce: Hash,
     previd: Hash.Or(Null),
     created: Number,
-    T: Literal('00000002af000000000000000000000000000000000000000000000000000000'),
+    T: Hash,
     miner: Optional(String.withConstraint((text) => {
         return text.length <= 128 && /^[\x20-\x7E]*$/.test(text);
     })),
