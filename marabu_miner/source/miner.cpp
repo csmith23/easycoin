@@ -39,7 +39,6 @@ int main(int args, char** argv) {
 	bool found = false;
 
 	auto workFunc = [&](Hex64 nonce) {
-		auto init_value = std::string(nonce.value());
 		auto start = std::chrono::steady_clock::now();
 		long iters = 0;
 		while (!found) {
@@ -59,7 +58,6 @@ int main(int args, char** argv) {
 			nonce++;
 			iters++;
 			if (iters % 1000000 == 0) {
-				std::cout << "Thread that started with nonce " << init_value << " ended on nonce " << nonce.value() << std::endl;
 				auto now = std::chrono::steady_clock::now();
 				std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(now - start);
 				if (time_span.count() > MINING_TIMEOUT/1000.0) {
