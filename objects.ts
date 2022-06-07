@@ -17,7 +17,10 @@ const Outpoint = Record({
 
 export const GeneralTxObject = Record({
 	type: Literal("transaction"),
-	inputs: Array(Record({outpoint:Outpoint,sig:String})),
+	inputs: Array(Record({outpoint:Record({
+		txid: String,
+		index: Number
+	}),sig:String})),
 	outputs: Array(Record({pubkey:String,value:Number}))
 });
 
@@ -66,7 +69,7 @@ export async function getObject(objectid: string){
 	if (await doesObjectExist(objectid)){
 		const obj = JSON.parse(await DB.get("object:"+objectid));
 		return obj;
-	} 
+	}
 	else {
 		throw "Object not found in database";
 	}
