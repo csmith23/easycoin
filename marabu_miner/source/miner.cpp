@@ -58,7 +58,7 @@ int main(int args, char** argv) {
 			}
 			nonce++;
 			iters++;
-			if (iters % 1000000) {
+			if (iters % 1000000 == 0) {
 				std::cout << "Thread that started with nonce " << init_value << " ended on nonce " << nonce.value() << std::endl;
 				auto now = std::chrono::steady_clock::now();
 				std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(now - start);
@@ -96,3 +96,4 @@ int main(int args, char** argv) {
 	}
 }
 
+// {\"T\":\"00000002af000000000000000000000000000000000000000000000000000000\",\"created\":1624219079,\"miner\":\"dionyziz\",\"nonce\":\"0000000000000000000000000000000000000000000000000000002634878840\",\"note\":\"The Economist 2021-06-20: Crypto-miners are probably to blame for the graphics-chip shortage\",\"previd\":null,\"txids\":[],\"type\":\"block\"}
