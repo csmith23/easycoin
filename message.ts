@@ -158,6 +158,8 @@ export class messageHandler{
 				case 'object':
 					console.log("Peer "+this.peer.name+" sent object");
 					console.log(msgObject.object);
+					console.log("Full message:");
+					console.log(msgItem);
 					receiveObject(msgObject.object,this.peer);
 					break;
 
