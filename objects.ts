@@ -1,5 +1,5 @@
 // This file is added in HW 2
-import { Boolean, Number, String, Literal, Array, Tuple, Record, Union, Static, Template, Partial, Null } from 'runtypes';
+import { Boolean, Optional, Number, String, Literal, Array, Tuple, Record, Union, Static, Template, Partial, Null } from 'runtypes';
 const canonicalize = require('canonicalize')
 import * as network from './network'
 import * as message from './message'
@@ -15,32 +15,62 @@ const Outpoint = Record({
 	index: Number
 });
 
+export const Hash = String.withConstraint((id) => {
+    return /^[a-f0-9]{64}$/.test(id);
+});
+
+export const UTXOObjectSchema = Record({
+    index: Number.withConstraint((n) => {
+        return n >= 0;
+    }),
+    txid: Hash,
+});
+
 export const GeneralTxObject = Record({
-	type: Literal("transaction"),
-	inputs: Array(Record({outpoint:Record({
-		txid: String,
-		index: Number
-	}),sig:String})),
-	outputs: Array(Record({pubkey:String,value:Number}))
+    type: Literal('transaction'),
+    inputs: Array(Record({
+        outpoint: UTXOObjectSchema,
+        sig: String.withConstraint((id) => {
+            return /^[a-f0-9]{128}$/.test(id);
+        }),
+    })),
+    outputs: Array(Record({
+        pubkey: Hash,
+        value: Number.withConstraint((n) => {
+            return n >= 0;
+        }),
+    })),
 });
 
 export const CoinbaseObject = Record({
-	type: Literal("transaction"),
-	height: Number,
-	outputs: Array(Record({pubkey:String,value:Number}))
+    type: Literal('transaction'),
+    height: Number.withConstraint((n) => {
+        return n >= 0;
+    }),
+    outputs: Array(Record({
+        pubkey: Hash,
+        value: Number.withConstraint((n) => {
+            return n >= 0;
+        }),
+    })).withConstraint((outputs) => {
+        return outputs.length === 1;
+    }),
 });
 
 export const BlockObject = Record({
-	type: Literal("block"),
-	txids: Array(String),
-	nonce: String,
-	previd: String.Or(Null),
-	created: Number,
-	T: String
-}).And(Partial({
-	miner: String,
-	note: String
-}));
+    type: Literal('block'),
+    txids: Array(Hash),
+    nonce: Hash,
+    previd: Hash.Or(Null),
+    created: Number,
+    T: Literal('00000002af000000000000000000000000000000000000000000000000000000'),
+    miner: Optional(String.withConstraint((text) => {
+        return text.length <= 128 && /^[\x20-\x7E]*$/.test(text);
+    })),
+    note: Optional(String.withConstraint((text) => {
+        return text.length <= 128 && /^[\x20-\x7E]*$/.test(text);
+    })),
+});
 
 // Only there in order to have a dummy object type for testing
 // Hash = "c90232586b801f9558a76f2f963eccd831d9fe6775e4c8f1446b2331aa2132f2"
