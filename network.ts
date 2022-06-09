@@ -40,11 +40,8 @@ export function connectAsServer(bootstrapMode=false){
 		console.log("\n");
 
 		sayHello(thisPeer,myName);
-		if(!bootstrapMode) {
+		if(!bootstrapMode)
 			askForPeers(thisPeer);
-			requestChainTip(thisPeer) // Added in HW 4
-			requestMempool(thisPeer) // Added in HW 5
-		}
 
 		socket.on('close', hadError => {
 			if(!hadError)
