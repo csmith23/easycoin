@@ -4,7 +4,7 @@
   "description": "A simple blockchain node in Typescript developed for teaching",
   "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "tsc": "tsc"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
     "level-ts": "^2.1.0",
     "runtypes": "^6.5.0",
     "threads": "^1.7.0",
+    "typescript": "^4.7.3",
     "utils": "^0.2.2",
     "worker-threads": "^1.0.0"
   },

@@ -9,4 +9,7 @@ blockDatabase/
 transactionDatabase/
 debug/*.txt
 debug/keysDatabase/
-.DS_Store
+**/.DS_Store
+database/*
+keysDatabase/*
+marabu_miner/build/*

@@ -39,6 +39,7 @@ int main(int args, char** argv) {
 		bool found = false;
 
 		auto workFunc = [&](Hex64 nonce) {
+			std::cout << "initial nonce " << nonce.value() << std::endl;
 			while (!found) {
 				auto blk = prefix + nonce.value() + postfix;
 				auto hash = hashing::SHA256(blk);
@@ -58,7 +59,7 @@ int main(int args, char** argv) {
 		};
 
 		std::vector<std::thread> workers;
-		Hex64 initialNonce;
+		Hex64 initialNonce("10" + std::to_string(rand()).substr(0, 8));
 		auto cur = std::chrono::high_resolution_clock::now();
 		for (int i = 0; i < threads; ++i) {
 			Hex64 nonce(initialNonce);

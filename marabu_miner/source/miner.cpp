@@ -57,7 +57,7 @@ int main(int args, char** argv) {
 			}
 			nonce++;
 			iters++;
-			if (iters % 1000000) {
+			if (iters % 1000000 == 0) {
 				auto now = std::chrono::steady_clock::now();
 				std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(now - start);
 				if (time_span.count() > MINING_TIMEOUT/1000.0) {
@@ -68,7 +68,7 @@ int main(int args, char** argv) {
 	};
 
 	std::vector<std::thread> workers;
-	Hex64 initialNonce;
+	Hex64 initialNonce("10" + std::to_string(rand()).substr(0, 8));
 	auto cur = std::chrono::high_resolution_clock::now();
 	for (int i = 0; i < threads; ++i) {
 		Hex64 nonce(initialNonce);
